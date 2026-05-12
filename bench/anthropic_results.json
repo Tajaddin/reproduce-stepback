@@ -1,0 +1,37 @@
+{
+  "model": "claude-haiku-4-5-20251001",
+  "n_questions": 40,
+  "strategies": [
+    {
+      "strategy": "direct",
+      "accuracy": 1.0,
+      "correct": 40,
+      "unparseable": 0,
+      "wrong_ids": []
+    },
+    {
+      "strategy": "cot",
+      "accuracy": 1.0,
+      "correct": 40,
+      "unparseable": 0,
+      "wrong_ids": []
+    },
+    {
+      "strategy": "step_back",
+      "accuracy": 1.0,
+      "correct": 40,
+      "unparseable": 0,
+      "wrong_ids": []
+    }
+  ],
+  "deltas": {
+    "step_back_vs_cot_abs_pts": 0.0,
+    "step_back_vs_direct_abs_pts": 0.0,
+    "cot_vs_direct_abs_pts": 0.0
+  },
+  "paper_reference_palm2_l": {
+    "mmlu_hs_physics_cot_pct": 60.9,
+    "mmlu_hs_physics_step_back_pct": 66.4,
+    "delta_abs_pts": 5.5
+  }
+}

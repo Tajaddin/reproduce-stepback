@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reproduce-stepback"
+version = "0.1.0"
+description = "Reproduction of Zheng et al. 'Take a Step Back: Evoking Reasoning via Abstraction in LLMs' (ICLR 2024) on a hand-curated 40-question STEM benchmark."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Tajaddin Gafarov", email = "gafarovtajaddin@gmail.com"}]
+keywords = ["llm", "prompting", "reproduction", "iclr", "step-back", "reasoning", "anthropic"]
+dependencies = [
+    "pydantic>=2.6",
+    "click>=8.1",
+]
+
+[project.optional-dependencies]
+anthropic = ["anthropic>=0.39"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+stepback = "stepback.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
