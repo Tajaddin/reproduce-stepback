@@ -12,13 +12,13 @@ license = {text = "MIT"}
 authors = [{name = "Tajaddin Gafarov", email = "gafarovtajaddin@gmail.com"}]
 keywords = ["llm", "prompting", "reproduction", "iclr", "step-back", "reasoning", "anthropic"]
 dependencies = [
-    "pydantic>=2.6",
-    "click>=8.1",
+    "pydantic==2.9.2",
+    "click==8.1.7",
 ]
 
 [project.optional-dependencies]
-anthropic = ["anthropic>=0.39"]
-dev = ["pytest>=8.0"]
+anthropic = ["anthropic==0.39.0"]
+dev = ["pytest==8.3.3"]
 
 [project.scripts]
 stepback = "stepback.cli:cli"

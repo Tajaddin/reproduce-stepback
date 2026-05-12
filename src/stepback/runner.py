@@ -1,10 +1,11 @@
 """Runner + answer-letter extractor.
 
-Robust extractor — handles:
+Robust extractor handles:
+
 * "Answer: B" / "Answer:** B" / "Final answer: B"
 * answers in the middle of the response (uses LAST occurrence)
 * bare letters at the end of the response
-* models that wrap the letter in markdown / quotes
+* models that wrap the letter in markdown or quotes
 """
 
 from __future__ import annotations
@@ -31,7 +32,7 @@ def extract_answer_letter(text: str) -> str | None:
     matches = list(_ANSWER_RE.finditer(text))
     if matches:
         return matches[-1].group(1).upper()
-    # Fallback — last single letter A/B/C/D at end of any line.
+    # Fallback: last single letter A/B/C/D at end of any line.
     tail_matches = list(_TAIL_LETTER_RE.finditer(text))
     if tail_matches:
         return tail_matches[-1].group(1).upper()

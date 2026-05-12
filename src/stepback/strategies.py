@@ -1,9 +1,9 @@
 """Three prompting strategies.
 
-* ``DIRECT``   — no chain of thought; the paper's baseline ablation.
-* ``COT``      — "Let's think step by step." (the paper's vanilla CoT baseline.)
-* ``STEP_BACK`` — first ask a step-back question that names the principle,
-                  then answer the original. The paper's main contribution.
+* ``DIRECT``: no chain of thought, the paper's baseline ablation.
+* ``COT``: "Let's think step by step." (the paper's vanilla CoT baseline.)
+* ``STEP_BACK``: first ask a step-back question naming the principle,
+  then answer the original. The paper's main contribution.
 """
 
 from __future__ import annotations

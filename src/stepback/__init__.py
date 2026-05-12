@@ -1,13 +1,13 @@
-"""reproduce-stepback — reproduction of Step-Back Prompting (ICLR 2024).
+"""reproduce-stepback: reproduction of Step-Back Prompting (ICLR 2024).
 
 Exports:
 
-* :class:`Question` — one MMLU-style multiple-choice item
-* :func:`load_questions`
-* :func:`extract_answer_letter`
-* :class:`Strategy` enum (DIRECT / COT / STEP_BACK)
-* :class:`Completion` Protocol + :class:`MockCompletion` + :class:`AnthropicCompletion`
-* :func:`run_strategy` + :func:`run_all`
+* :class:`Question`: one MMLU-style multiple-choice item.
+* :func:`load_questions`.
+* :func:`extract_answer_letter`.
+* :class:`Strategy` enum (DIRECT / COT / STEP_BACK).
+* :class:`Completion` Protocol + :class:`MockCompletion` + :class:`AnthropicCompletion`.
+* :func:`run_strategy` + :func:`run_all`.
 """
 
 from stepback.backends import AnthropicCompletion, Completion, MockCompletion
