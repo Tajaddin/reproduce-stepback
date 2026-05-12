@@ -25,13 +25,25 @@ Raw output: [bench/anthropic_results.json](bench/anthropic_results.json).
 
 ## Reading the result
 
-The paper's effect is not refuted. The benchmark is saturated. PaLM 2-L scored 60.9 % on vanilla CoT, leaving 39 pts of headroom. Haiku 4.5 hits 100 % zero-shot, so step-back has nothing to add.
+The gap is not "step-back is worse than reported." The experimental regime the paper measured in has shifted out from under the experiment. PaLM 2-L scored 60.9 % on vanilla CoT, leaving 39 pts of headroom. Haiku 4.5 hits 100 % zero-shot, so step-back has nothing to add. The recipe still works. On this combination of (Haiku 4.5, MMLU physics, n=40), the effect size is zero. The result is a fingerprint of how the field moved between October 2023 (paper submission) and 2025, not a refutation.
 
 Three claims fall out of the data:
 
-- Frontier 2025 instruction-tuned models name the underlying principle inside vanilla CoT without prompting. The recipe became a property of the model.
+- Frontier 2025 instruction-tuned models name the underlying principle inside vanilla CoT without being prompted. The recipe became a property of the model.
 - MMLU-style physics, even rewritten fresh, no longer separates frontier models. The benchmark genre is the issue, not the specific items.
 - To see the effect today, swap to a harder set (MMLU-Pro, GPQA-Diamond, FrontierMath) or a weaker model (Llama-3.1-8B via Groq). The `Completion` protocol takes either swap in one line.
+
+## What would change the result
+
+Three modifications restore measurable headroom for step-back to fill:
+
+| Change | Why it works |
+|---|---|
+| Swap dataset for MMLU-Pro / GPQA-Diamond / FrontierMath | Harder items lower the vanilla-CoT baseline, leaving room for step-back to recover. |
+| Swap base model for Llama-3.1-8B via Groq | A weaker base widens the CoT-vs-step-back gap. |
+| Raise n to 300+ with bootstrap CIs | n=40 has wide confidence. Small effects need bigger samples to detect. |
+
+The first needs `benchmark/questions.json` replaced. The second is a one-line change behind the `Completion` protocol. The third is mechanical (rerun the loop).
 
 ## How to run
 
@@ -110,17 +122,17 @@ tests/test_runner.py      4 passed   correct/unparseable counts, per-question re
 
 ```
 .
-├── paper.md
-├── benchmark/questions.json
-├── scripts/check_questions.py
+├── paper.md                          # citation + paper's reported numbers table
+├── benchmark/questions.json          # 40 hand-curated MMLU-style physics items
+├── scripts/check_questions.py        # standalone integrity check, runs in CI
 ├── src/stepback/
-│   ├── dataset.py
-│   ├── strategies.py
-│   ├── backends.py
-│   ├── runner.py
-│   └── cli.py
-├── tests/
-└── bench/run_anthropic.py
+│   ├── dataset.py                    # Question dataclass + load_questions
+│   ├── strategies.py                 # Strategy enum + PROMPTS per strategy
+│   ├── backends.py                   # Completion Protocol + Mock + Anthropic
+│   ├── runner.py                     # extract_answer_letter + run_strategy + StrategyResult
+│   └── cli.py                        # `stepback list / run`
+├── tests/                            # 4 files, 22 cases
+└── bench/run_anthropic.py            # the 120-call hero run, writes anthropic_results.json
 ```
 
 ## License
